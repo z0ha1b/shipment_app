@@ -29,16 +29,16 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult Index(OrderModel order)
+    public async Task<IActionResult> Index(OrderModel order)
     {
         var orderDto = _mapper.Map<CreateOrderDto>(order);
         var command = new CreateOrderCommand
         {
             CreateOrderDto = orderDto
         };
-        
-        _mediator.Send(command);
-        
+
+        await _mediator.Send(command);
+
         return Ok("Form is Saved");
     }
 
@@ -52,7 +52,7 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-    
+
     [HttpGet]
     public IActionResult GetStates(string countryId)
     {

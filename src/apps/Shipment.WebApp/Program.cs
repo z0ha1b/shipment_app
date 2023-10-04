@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddProjectsServices(configuration);
 builder.Services.AddHealthChecks().Services.AddDbContext<OrderContext>();
 builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 app.MigrateDatabase<OrderContext>((context, services) =>
