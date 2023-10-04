@@ -1,0 +1,13 @@
+.idea
+/src/apps/Shipment.WebApp/bin
+/src/apps/Shipment.WebApp/obj
+/src/services/Shipment.Application/bin
+/src/services/Shipment.Application/obj
+/src/services/Shipment.Core/bin
+/src/services/Shipment.Core/obj
+/src/services/Shipment.Infrastructure/bin
+/src/services/Shipment.Infrastructure/obj
+/src/BuildingBlocks/BuildingBlocks.ExceptionHandler/bin
+/src/BuildingBlocks/BuildingBlocks.ExceptionHandler/obj
+/.idea
+/.vs
