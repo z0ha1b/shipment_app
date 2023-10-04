@@ -7,297 +7,320 @@
 
 <div >
 <h3 class="text-center mb-3"> Customer Application</h3>
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    @if (!string.IsNullOrEmpty(Model.Message) && !Model.Success)
     {
-    
-<div class="container">
 
-<div class="row">
-    <div class="col">
-        <h5>Bill To</h5>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.CompanyName, new { @class = "form-control", @id = "txtBillToCompany" })
-                    <label for="txtShipToCompany">Company Name</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.Addr, new { @class = "form-control", @id = "txtBillToAddr" })
-                    <label for="txtShipToAddr">Address</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.City, new { @class = "form-control", @id = "txtBillToCity" })
-                    <label for="txtShipToCity">City</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    @{
-                        var BillToCountries = CountryModel.GetCountries();
-                        var BillToSelectCountriesList = new SelectList(BillToCountries, "Id", "CountryName");
-                    }
-                    @Html.DropDownListFor(x => x.BillTo.Country, BillToSelectCountriesList, "Select Country", new
-                    {
-                        @class = "form-select",
-                        @id = "BillToCountryDropDown"
-                    })
-
-                    <label for="floatingSelect">Country</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.Zip, new { @class = "form-control", @id = "txtBillToZip" })
-                    <label for="txtShipToZip">Zip</label>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-floating">
-                    @{
-                        var BillToStates = StateModel.GetStates(string.Empty);
-                        var BillToStatesList = new SelectList(BillToStates, "Id", "StateName");
-                    }
-                    @Html.DropDownListFor(x => x.BillTo.State, BillToStatesList, "Select State", new
-                    {
-                        @class = "form-select",
-                        @id = "ddlBillToState"
-                    })
-                    <label for="ddlBillToState">State</label>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.County, new { @class = "form-control", @id = "txtShipToPhone" })
-                    <label for="txtShipToPhone">County</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.Phone, new { @class = "form-control", @id = "txtBillToPhone" })
-                    <label for="txtShipToPhone">Phone</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.Fax, new { @class = "form-control", @id = "txtBillToFax" })
-                    <label for="floatingInput">Fax</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.Contact, new { @class = "form-control", @id = "txtBillToBillingContact" })
-                    <label for="txtBillToBillingContact">Billing Contact</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.ContactEmail, new { @class = "form-control", @id = "txtBillToBillingContactEmail" })
-                    <label for="txtBillToBillingContactEmail">Billing Contact Email</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.DbNumber, new { @class = "form-control", @id = "txtBillTOD&BNumber" })
-                    <label for="txtBillTOD&BNumber">D&B Number</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.NatureOfBusiness, new { @class = "form-control", @id = "txtBillNatureOfBusiness" })
-                    <label for="txtBillNatureOfBusiness">Nature of Business</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.BillTo.YearsInBusiness, new { @class = "form-control", @id = "txtBillToYearInBusiness" })
-                    <label for="txtBillToYearInBusiness">Year in Business</label>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="col">
-        <h5>Ship To</h5>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.CompanyName, new { @class = "form-control", @id = "txtShipToCompany" })
-                    <label for="txtShipToCompany">Company Name</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.Addr, new { @class = "form-control", @id = "txtShipToAddr" })
-                    <label for="txtShipToAddr">Address</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.City, new { @class = "form-control", @id = "txtShipToCity" })
-                    <label for="txtShipToCity">City</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    @{
-                        var countries = CountryModel.GetCountries();
-                        var selectCountriesList = new SelectList(countries, "Id", "CountryName");
-                    }
-                    @Html.DropDownListFor(x => x.ShipTo.Country, selectCountriesList, "Select Country", new
-                    {
-                        @class = "form-select",
-                        @id = "ShipToCountryDropDown"
-                    })
-
-                    <label for="floatingSelect">Country</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.Zip, new { @class = "form-control", @id = "txtShipToZip" })
-                    <label for="txtShipToZip">Zip</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating">
-                    @{
-                        var States = StateModel.GetStates(string.Empty);
-                        var StatesList = new SelectList(States, "Id", "StateName");
-                    }
-                    @Html.DropDownListFor(x => x.BillTo.State, StatesList, "Select State", new
-                    {
-                        @class = "form-select",
-                        @id = "ddlShipToState"
-                    })
-                    <label for="ddlShipToState">State</label>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.County, new { @class = "form-control", @id = "txtShipToPhone" })
-                    <label for="txtShipToPhone">County</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.Phone, new { @class = "form-control", @id = "txtShipToPhone" })
-                    <label for="txtShipToPhone">Phone</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.Fax, new { @class = "form-control", @id = "txtShipToFax" })
-
-                    <label for="txtShipToFax">Fax</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.Contact, new { @class = "form-control", @id = "txtShipToShippingContact" })
-                    <label for="floatingInput">Shipping Contact</label>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.ShipTo.ContactEmail, new { @class = "form-control", @id = "txtShipToShippingContactEmail" })
-                    <label for="txtShipToShippingContactEmail">Shipping Contact Email</label>
-                </div>
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill"/>
+            </svg>
+            <div>
+                @Model.Message
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <div class="card text-bg-light mb-3">
-            <div class="row mb-3">
-                <div class="col-md-2">
-                    <h6 class="p-2">Tax Exempt</h6>
-                </div>
-                <div class="col-md-1 p-2">
-                    <div class="form-check">
-                        @Html.RadioButtonFor(x => x.TaxExempt, "Yes", new { @class = "form-check-input", @id = "radioButtonTaxExemptYes" })
-                        <label class="form-check-label" for="radioButtonTaxExemptYes">
-                            Yes
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-1 p-2">
-                    <div class="form-check">
-                        @Html.RadioButtonFor(x => x.TaxExempt, "No", new { @class = "form-check-input", @id = "radioButtonTaxExemptNo" })
-                        <label class="form-check-label" for="radioButtonTaxExemptNo">
-                            No
-                        </label>
-                    </div>
-                </div>
+    }
+    else if (Model.Success)
+    {
+        
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                <use xlink:href="#check-circle-fill"/>
+            </svg>
+            <div>
+                Record has been saved successfully.
             </div>
-            <p class="card-text fw-bold p-2 m-1">
-                The sales/use tax obligation is the customer’s. Please provide applicable Tax Exempt Certificate. If no certificate is provided,
-                sales tax might be collected and will not be refunded.
-            </p>
-            <div class="row mb-3">
+        </div>
+    }
+    <div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h5>Bill To</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.CompanyName, new { @class = "form-control", @id = "txtBillToCompany" })
+                        <label for="txtShipToCompany">Company Name</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.Addr, new { @class = "form-control", @id = "txtBillToAddr" })
+                        <label for="txtShipToAddr">Address</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.City, new { @class = "form-control", @id = "txtBillToCity" })
+                        <label for="txtShipToCity">City</label>
+                    </div>
+                </div>
                 <div class="col-md-6">
-                    <p class="card-title p-2"> Please indicate if your company requires purchase order numbers: </p>
-                </div>
-                <div class="col-md-1 p-2">
-                    <div class="form-check">
-                        @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "Yes", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredYes" })
+                    <div class="form-floating mb-3">
+                        @{
+                            var BillToCountries = CountryModel.GetCountries();
+                            var BillToSelectCountriesList = new SelectList(BillToCountries, "Id", "CountryName");
+                        }
+                        @Html.DropDownListFor(x => x.BillTo.Country, BillToSelectCountriesList, "Select Country", new
+                        {
+                            @class = "form-select",
+                            @id = "BillToCountryDropDown"
+                        })
 
-                        <label class="form-check-label" for="radioButtonPurchaseOrderRequiredYes">
-                            Yes
-                        </label>
+                        <label for="floatingSelect">Country</label>
                     </div>
                 </div>
-                <div class="col-md-1 p-2">
-                    <div class="form-check">
-                        @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "No", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredNo" })
-                        <label class="form-check-label" for="radioButtonPurchaseOrderRequiredNo">
-                            No
-                        </label>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.Zip, new { @class = "form-control", @id = "txtBillToZip" })
+                        <label for="txtShipToZip">Zip</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        @{
+                            var BillToStates = StateModel.GetStates(string.Empty);
+                            var BillToStatesList = new SelectList(BillToStates, "Id", "StateName");
+                        }
+                        @Html.DropDownListFor(x => x.BillTo.State, BillToStatesList, "Select State", new
+                        {
+                            @class = "form-select",
+                            @id = "ddlBillToState"
+                        })
+                        <label for="ddlBillToState">State</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.County, new { @class = "form-control", @id = "txtShipToPhone" })
+                        <label for="txtShipToPhone">County</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.Phone, new { @class = "form-control", @id = "txtBillToPhone" })
+                        <label for="txtShipToPhone">Phone</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.Fax, new { @class = "form-control", @id = "txtBillToFax" })
+                        <label for="floatingInput">Fax</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.Contact, new { @class = "form-control", @id = "txtBillToBillingContact" })
+                        <label for="txtBillToBillingContact">Billing Contact</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.ContactEmail, new { @class = "form-control", @id = "txtBillToBillingContactEmail" })
+                        <label for="txtBillToBillingContactEmail">Billing Contact Email</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.DbNumber, new { @class = "form-control", @id = "txtBillTOD&BNumber" })
+                        <label for="txtBillTOD&BNumber">D&B Number</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.NatureOfBusiness, new { @class = "form-control", @id = "txtBillNatureOfBusiness" })
+                        <label for="txtBillNatureOfBusiness">Nature of Business</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.BillTo.YearsInBusiness, new { @class = "form-control", @id = "txtBillToYearInBusiness" })
+                        <label for="txtBillToYearInBusiness">Year in Business</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col">
+            <h5>Ship To</h5>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.CompanyName, new { @class = "form-control", @id = "txtShipToCompany" })
+                        <label for="txtShipToCompany">Company Name</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.Addr, new { @class = "form-control", @id = "txtShipToAddr" })
+                        <label for="txtShipToAddr">Address</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.City, new { @class = "form-control", @id = "txtShipToCity" })
+                        <label for="txtShipToCity">City</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        @{
+                            var countries = CountryModel.GetCountries();
+                            var selectCountriesList = new SelectList(countries, "Id", "CountryName");
+                        }
+                        @Html.DropDownListFor(x => x.ShipTo.Country, selectCountriesList, "Select Country", new
+                        {
+                            @class = "form-select",
+                            @id = "ShipToCountryDropDown"
+                        })
+
+                        <label for="floatingSelect">Country</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.Zip, new { @class = "form-control", @id = "txtShipToZip" })
+                        <label for="txtShipToZip">Zip</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        @{
+                            var States = StateModel.GetStates(string.Empty);
+                            var StatesList = new SelectList(States, "Id", "StateName");
+                        }
+                        @Html.DropDownListFor(x => x.BillTo.State, StatesList, "Select State", new
+                        {
+                            @class = "form-select",
+                            @id = "ddlShipToState"
+                        })
+                        <label for="ddlShipToState">State</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.County, new { @class = "form-control", @id = "txtShipToPhone" })
+                        <label for="txtShipToPhone">County</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.Phone, new { @class = "form-control", @id = "txtShipToPhone" })
+                        <label for="txtShipToPhone">Phone</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.Fax, new { @class = "form-control", @id = "txtShipToFax" })
+
+                        <label for="txtShipToFax">Fax</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.Contact, new { @class = "form-control", @id = "txtShipToShippingContact" })
+                        <label for="floatingInput">Shipping Contact</label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.ShipTo.ContactEmail, new { @class = "form-control", @id = "txtShipToShippingContactEmail" })
+                        <label for="txtShipToShippingContactEmail">Shipping Contact Email</label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.FieldOne, new { @class = "form-control", @id = "txtField1" })
-                    <label for="txtField1">Field 1: </label>
+    <div class="row">
+        <div class="col">
+            <div class="card text-bg-light mb-3">
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <h6 class="p-2">Tax Exempt</h6>
+                    </div>
+                    <div class="col-md-1 p-2">
+                        <div class="form-check">
+                            @Html.RadioButtonFor(x => x.TaxExempt, "Yes", new { @class = "form-check-input", @id = "radioButtonTaxExemptYes" })
+                            <label class="form-check-label" for="radioButtonTaxExemptYes">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-1 p-2">
+                        <div class="form-check">
+                            @Html.RadioButtonFor(x => x.TaxExempt, "No", new { @class = "form-check-input", @id = "radioButtonTaxExemptNo" })
+                            <label class="form-check-label" for="radioButtonTaxExemptNo">
+                                No
+                            </label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.FieldTwo, new { @class = "form-control", @id = "txtField2" })
-                    <label for="txtField2">Field 2: </label>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-floating mb-3">
-                    @Html.TextBoxFor(x => x.FieldThree, new { @class = "form-control", @id = "txtField3" })
-                    <label for="txtField3">Field 3: </label>
+                <p class="card-text fw-bold p-2 m-1">
+                    The sales/use tax obligation is the customer’s. Please provide applicable Tax Exempt Certificate. If no certificate is provided,
+                    sales tax might be collected and will not be refunded.
+                </p>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p class="card-title p-2"> Please indicate if your company requires purchase order numbers: </p>
+                    </div>
+                    <div class="col-md-1 p-2">
+                        <div class="form-check">
+                            @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "Yes", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredYes" })
+
+                            <label class="form-check-label" for="radioButtonPurchaseOrderRequiredYes">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-1 p-2">
+                        <div class="form-check">
+                            @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "No", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredNo" })
+                            <label class="form-check-label" for="radioButtonPurchaseOrderRequiredNo">
+                                No
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.FieldOne, new { @class = "form-control", @id = "txtField1" })
+                        <label for="txtField1">Field 1: </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.FieldTwo, new { @class = "form-control", @id = "txtField2" })
+                        <label for="txtField2">Field 2: </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-3">
+                        @Html.TextBoxFor(x => x.FieldThree, new { @class = "form-control", @id = "txtField3" })
+                        <label for="txtField3">Field 3: </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input class="btn btn-primary" type="submit"/>
+        </div>
+    </div>
 
     </div>
-</div>
-<div class="row">
-    <div class="col">
-        <input class="btn btn-primary" type="submit"/>
-    </div>
-</div>
-                    
-</div>
-     }               
+}
 </div>
 
 <input type="hidden" id="hdnStatesUrl" value="@Href("~/Home/GetStates")"/>

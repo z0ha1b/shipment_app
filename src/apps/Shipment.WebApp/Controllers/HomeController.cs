@@ -22,24 +22,45 @@ public class HomeController : Controller
         _mapper = mapper;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(bool success, string message)
     {
-        var order = new OrderModel();
+        var order = new OrderModel
+        {
+            Success = success,
+            Message = message
+        };
+
         return View(order);
     }
 
     [HttpPost]
     public async Task<IActionResult> Index(OrderModel order)
     {
-        var orderDto = _mapper.Map<CreateOrderDto>(order);
-        var command = new CreateOrderCommand
+        try
         {
-            CreateOrderDto = orderDto
-        };
+            var orderDto = _mapper.Map<CreateOrderDto>(order);
+            var command = new CreateOrderCommand
+            {
+                CreateOrderDto = orderDto
+            };
 
-        await _mediator.Send(command);
+            await _mediator.Send(command);
+            order = new OrderModel
+            {
+                Success = true
+            };
+        }
+        catch (Exception e)
+        {
+            order.Message = e.Message;
+        }
 
-        return Ok("Form is Saved");
+        if (!order.Success)
+        {
+            return View(order);
+        }
+
+        return RedirectToAction("Index", new { success = order.Success, message = order.Message });
     }
 
     public IActionResult Privacy()

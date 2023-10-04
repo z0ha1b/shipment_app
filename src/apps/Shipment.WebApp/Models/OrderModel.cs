@@ -2,6 +2,8 @@ namespace Shipment.WebApp.Models;
 
 public class OrderModel
 {
+    public bool Success { get; set; }
+    public string? Message { get; set; }
     public BillingInfoModel? BillTo { get; set; } = new();
     public AddressModel? ShipTo { get; set; } = new();
 
