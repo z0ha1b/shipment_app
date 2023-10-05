@@ -4,5 +4,5 @@ namespace Shipment.Core.Repositories;
 
 public interface IStateRepository : IAsyncRepository<State>
 {
-    Task<IReadOnlyList<State>> GetStates(string country);
+    Task<IReadOnlyList<State>> GetStates(long countryId);
 }

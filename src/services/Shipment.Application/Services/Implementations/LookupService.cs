@@ -23,10 +23,6 @@ public class LookupService : ILookupService
         try
         {
             var countries = await _countryRepository.GetAllAsync();
-            if (countries.Count == 0)
-            {
-                throw new Exception("No countries found");
-            }
 
             IReadOnlyList<CountryDto> countriesList = _mapper.Map<List<CountryDto>>(countries);
             return countriesList;
@@ -38,16 +34,12 @@ public class LookupService : ILookupService
         }
     }
 
-    public async Task<IReadOnlyList<StateDto>> ReadStates(string countryAbbr)
+    public async Task<IReadOnlyList<StateDto>> ReadStates(long countryId)
     {
         try
         {
-            var states = await _stateRepository.GetStates(countryAbbr);
-            if (states.Count == 0)
-            {
-                throw new Exception("No states found {StateService} ");
-            }
-
+            var states = await _stateRepository.GetStates(countryId);
+            
             IReadOnlyList<StateDto> statesList = _mapper.Map<List<StateDto>>(states);
             return statesList;
         }

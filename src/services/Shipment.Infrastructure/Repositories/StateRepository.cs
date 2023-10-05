@@ -11,16 +11,11 @@ public class StateRepository : RepositoryBase<State>, IStateRepository
     {
     }
 
-    public async Task<IReadOnlyList<State>> GetStates(string country)
+    public async Task<IReadOnlyList<State>> GetStates(long countryId)
     {
         try
         {
-            var statesList = await DbContext.Set<State>().Where(x => x.Abbr.Equals(country)).ToListAsync();
-            if (statesList.Count == 0)
-            {
-                 var allStates = await DbContext.Set<State>().ToListAsync();
-                 return  allStates;
-            }
+            var statesList = await DbContext.Set<State>().Where(x => x.CountryId == countryId).ToListAsync();
             return statesList;
         }
         catch (Exception e)
@@ -28,6 +23,5 @@ public class StateRepository : RepositoryBase<State>, IStateRepository
             Console.WriteLine("Error while finding states " + e);
             throw;
         }
-   
     }
 }

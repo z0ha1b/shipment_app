@@ -8,5 +8,5 @@ public class CountryModel
 {
     public string Abbr { get; set; } = string.Empty;
     public string CountryName { get; set; } = string.Empty;
-    
+    public long Id { get; set; }
 }

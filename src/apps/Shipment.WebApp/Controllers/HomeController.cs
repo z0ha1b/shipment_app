@@ -78,9 +78,9 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetStates(string countryId)
+    public async Task<IActionResult> GetStates(long countryId)
     {
-        var statesDto = await _lookupService.ReadStates(countryId);
+            var statesDto = await _lookupService.ReadStates(countryId);
         IReadOnlyList<StateModel> shipToStates = _mapper.Map<List<StateModel>>(statesDto);
         return Ok(shipToStates);
     }

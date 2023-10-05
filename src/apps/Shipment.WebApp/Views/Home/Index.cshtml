@@ -80,7 +80,7 @@
                         @{
                             var billToCountriesDto = await _lookupService.ReadCountries();
                             IReadOnlyList<CountryModel> billToCountries = _mapper.Map<List<CountryModel>>(billToCountriesDto);
-                            var billToSelectCountriesList = new SelectList(billToCountries, "Abbr", "CountryName");
+                            var billToSelectCountriesList = new SelectList(billToCountries, "Id", "CountryName");
                         }
                         @Html.DropDownListFor(x => x.BillTo.Country, billToSelectCountriesList, "Select Country", new
                         {
@@ -106,9 +106,9 @@
                 <div class="col-md-6">
                     <div class="form-floating">
                         @{
-                            var billToStateDto = await _lookupService.ReadStates(String.Empty);
-                            IReadOnlyList<StateModel> billToStates = _mapper.Map<List<StateModel>>(billToStateDto);
-                            var billToStatesList = new SelectList(billToStates, "Abbr", "StateName");
+                            // var billToStateDto = await _lookupService.ReadStates(String.Empty);
+                            var billToStates = new List<StateModel>(); //_mapper.Map<List<StateModel>>(billToStateDto);
+                            var billToStatesList = new SelectList(billToStates, "Id", "StateName");
                         }
                         @Html.DropDownListFor(x => x.BillTo.State, billToStatesList, "Select State", new
                         {
@@ -241,7 +241,7 @@
                         @{
                             var shipToCountriesDto = await _lookupService.ReadCountries();
                             IReadOnlyList<CountryModel> shipToCountries = _mapper.Map<List<CountryModel>>(shipToCountriesDto);
-                            var shipToSelectCountriesList = new SelectList(shipToCountries, "Abbr", "CountryName");
+                            var shipToSelectCountriesList = new SelectList(shipToCountries, "Id", "CountryName");
                         }
                         @Html.DropDownListFor(x => x.ShipTo.Country, shipToSelectCountriesList, "Select Country", new
                         {
@@ -266,9 +266,9 @@
                 <div class="col-md-6">
                     <div class="form-floating">
                         @{
-                            var shipToStateDto = await _lookupService.ReadStates(String.Empty);
-                            IReadOnlyList<StateModel> shipToStates = _mapper.Map<List<StateModel>>(shipToStateDto);
-                            var shipToStatesList = new SelectList(shipToStates, "Abbr", "StateName");
+                            // var shipToStateDto = await _lookupService.ReadStates(String.Empty);
+                            var shipToStates = new List<StateModel>(); //_mapper.Map<List<StateModel>>(shipToStateDto);
+                            var shipToStatesList = new SelectList(shipToStates, "Id", "StateName");
                         }
                         @Html.DropDownListFor(x => x.ShipTo.State, shipToStatesList, "Select State", new
                         {
