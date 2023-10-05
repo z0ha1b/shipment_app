@@ -140,16 +140,7 @@
                         <label for="txtShipToPhone">Phone</label>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="form-floating mb-3">
-                        @Html.TextBoxFor(x => x.BillTo.Fax, new
-                        {
-                            @class = "form-control", @id = "txtBillToFax"
-                            , @required = "required"
-                        })
-                        <label for="floatingInput">Fax</label>
-                    </div>
-                </div>
+
                 <div class="col-md-12">
                     <div class="form-floating mb-3">
                         @Html.TextBoxFor(x => x.BillTo.Contact, new
@@ -175,7 +166,6 @@
                         @Html.TextBoxFor(x => x.BillTo.DbNumber, new
                         {
                             @class = "form-control", @id = "txtBillTOD&BNumber",
-                            @required = "required"
                         })
                         <label for="txtBillTOD&BNumber">D&B Number</label>
                     </div>
@@ -185,7 +175,6 @@
                         @Html.TextBoxFor(x => x.BillTo.NatureOfBusiness, new
                         {
                             @class = "form-control", @id = "txtBillNatureOfBusiness"
-                            , @required = "required"
                         })
                         <label for="txtBillNatureOfBusiness">Nature of Business</label>
                     </div>
@@ -195,7 +184,6 @@
                         @Html.TextBoxFor(x => x.BillTo.YearsInBusiness, new
                         {
                             @class = "form-control", @id = "txtBillToYearInBusiness"
-                            , @required = "required"
                         })
                         <label for="txtBillToYearInBusiness">Year in Business</label>
                     </div>
@@ -299,17 +287,7 @@
                         <label for="txtShipToPhone">Phone</label>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="form-floating mb-3">
-                        @Html.TextBoxFor(x => x.ShipTo.Fax, new
-                        {
-                            @class = "form-control", @id = "txtShipToFax"
-                            , @required = "required"
-                        })
 
-                        <label for="txtShipToFax">Fax</label>
-                    </div>
-                </div>
                 <div class="col-md-12">
                     <div class="form-floating mb-3">
                         @Html.TextBoxFor(x => x.ShipTo.Contact, new { @class = "form-control", @id = "txtShipToShippingContact", @required = "required" })
