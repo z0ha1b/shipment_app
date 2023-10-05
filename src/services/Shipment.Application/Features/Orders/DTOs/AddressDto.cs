@@ -12,7 +12,6 @@ public class AddressDto
     public string? Country { get; set; }
     public string? County { get; set; }
     public string? Phone { get; set; }
-    public string? Fax { get; set; }
     public string? Contact { get; set; }
     public string? ContactEmail { get; set; }
 }
