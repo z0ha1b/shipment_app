@@ -12,7 +12,7 @@ public class SchedulingContextFactory : IDesignTimeDbContextFactory<OrderContext
     public OrderContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<OrderContext>();
-        optionsBuilder.UseSqlServer("Data Source=OrderDb");
+        optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=OrderDb;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true");
 
         return new OrderContext(optionsBuilder.Options);
     }

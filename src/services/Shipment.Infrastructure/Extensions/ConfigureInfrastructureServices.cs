@@ -14,7 +14,8 @@ public static class ConfigureInfrastructureServices
         serviceCollection.AddDbContext<OrderContext>(options => options.UseSqlServer(configuration.GetConnectionString("OrderConnectionString")));
         serviceCollection.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
         serviceCollection.AddScoped<IOrderRepository, OrderRepository>();
-
+        serviceCollection.AddScoped<ICountryRepository, CountryRepository>();
+        serviceCollection.AddScoped<IStateRepository, StateRepository>();
         return serviceCollection;
     }
 }

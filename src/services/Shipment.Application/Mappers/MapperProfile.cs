@@ -10,13 +10,15 @@ public class MapperProfile : Profile
     {
         //Mapping AddressDto to Address
         CreateMap<AddressDto, Address>();
-       
         // Mapping OrderDto to order
-        CreateMap<CreateOrderDto, Order>()    .ForMember(dto => dto.BillTo, opt => opt.MapFrom(model => model.BillTo))
-            .ForMember(dto => dto.ShipTo, opt => opt.MapFrom(model => model.ShipTo));
-        
+        CreateMap<CreateOrderDto, Order>()
+            .ForMember(dto => dto.BillTo, 
+                opt => opt.MapFrom(model => model.BillTo))
+            .ForMember(dto => dto.ShipTo, 
+                opt => opt.MapFrom(model => model.ShipTo));
         // Mapping BillingInfoDto to BillingInfo
         CreateMap<BillingInfoDto, BillingInfo>();
-        
+        CreateMap<CountryDto, Country>();
+        CreateMap<StateDto, State>();
     }
 }
