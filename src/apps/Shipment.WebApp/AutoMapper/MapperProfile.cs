@@ -1,6 +1,7 @@
 using AutoMapper;
 using Shipment.Application.Features.Orders.DTOs;
 using Shipment.WebApp.Models;
+using Shipment.WebApp.Models.LocationModels;
 
 namespace Shipment.WebApp.AutoMapper;
 
@@ -13,6 +14,7 @@ public class MapperProfile : Profile
         CreateMap<OrderModel, CreateOrderDto>()
             .ForMember(dto => dto.BillTo, opt => opt.MapFrom(model => model.BillTo))
             .ForMember(dto => dto.ShipTo, opt => opt.MapFrom(model => model.ShipTo));
-
+       CreateMap<CountryDto, CountryModel>();
+       CreateMap< StateDto, StateModel>();
     }
 }

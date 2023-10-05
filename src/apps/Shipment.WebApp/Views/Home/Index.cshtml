@@ -1,5 +1,10 @@
 ﻿@using Shipment.WebApp.Models.LocationModels
+@using Shipment.Application.Services.Interfaces
+@using AutoMapper
 @model OrderModel
+@inject ILookupService _lookupService
+@inject IMapper _mapper
+
 
 @{
     ViewData["Title"] = " Customer Application";
@@ -73,10 +78,11 @@
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                         @{
-                            var BillToCountries = CountryModel.GetCountries();
-                            var BillToSelectCountriesList = new SelectList(BillToCountries, "Id", "CountryName");
+                            var billToCountriesDto = await _lookupService.ReadCountries();
+                            IReadOnlyList<CountryModel> billToCountries = _mapper.Map<List<CountryModel>>(billToCountriesDto);
+                            var billToSelectCountriesList = new SelectList(billToCountries, "Abbr", "CountryName");
                         }
-                        @Html.DropDownListFor(x => x.BillTo.Country, BillToSelectCountriesList, "Select Country", new
+                        @Html.DropDownListFor(x => x.BillTo.Country, billToSelectCountriesList, "Select Country", new
                         {
                             @class = "form-select",
                             @id = "BillToCountryDropDown"
@@ -100,10 +106,11 @@
                 <div class="col-md-6">
                     <div class="form-floating">
                         @{
-                            var BillToStates = StateModel.GetStates(string.Empty);
-                            var BillToStatesList = new SelectList(BillToStates, "Id", "StateName");
+                            var billToStateDto = await _lookupService.ReadStates(String.Empty);
+                            IReadOnlyList<StateModel> billToStates = _mapper.Map<List<StateModel>>(billToStateDto);
+                            var billToStatesList = new SelectList(billToStates, "Abbr", "StateName");
                         }
-                        @Html.DropDownListFor(x => x.BillTo.State, BillToStatesList, "Select State", new
+                        @Html.DropDownListFor(x => x.BillTo.State, billToStatesList, "Select State", new
                         {
                             @class = "form-select",
                             @id = "ddlBillToState"
@@ -232,10 +239,11 @@
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                         @{
-                            var countries = CountryModel.GetCountries();
-                            var selectCountriesList = new SelectList(countries, "Id", "CountryName");
+                            var shipToCountriesDto = await _lookupService.ReadCountries();
+                            IReadOnlyList<CountryModel> shipToCountries = _mapper.Map<List<CountryModel>>(shipToCountriesDto);
+                            var shipToSelectCountriesList = new SelectList(shipToCountries, "Abbr", "CountryName");
                         }
-                        @Html.DropDownListFor(x => x.ShipTo.Country, selectCountriesList, "Select Country", new
+                        @Html.DropDownListFor(x => x.ShipTo.Country, shipToSelectCountriesList, "Select Country", new
                         {
                             @class = "form-select",
                             @id = "ShipToCountryDropDown"
@@ -258,10 +266,11 @@
                 <div class="col-md-6">
                     <div class="form-floating">
                         @{
-                            var States = StateModel.GetStates(string.Empty);
-                            var StatesList = new SelectList(States, "Id", "StateName");
+                            var shipToStateDto = await _lookupService.ReadStates(String.Empty);
+                            IReadOnlyList<StateModel> shipToStates = _mapper.Map<List<StateModel>>(shipToStateDto);
+                            var shipToStatesList = new SelectList(shipToStates, "Abbr", "StateName");
                         }
-                        @Html.DropDownListFor(x => x.ShipTo.State, StatesList, "Select State", new
+                        @Html.DropDownListFor(x => x.ShipTo.State, shipToStatesList, "Select State", new
                         {
                             @class = "form-select",
                             @id = "ddlShipToState"
@@ -348,27 +357,29 @@
                     The sales/use tax obligation is the customer’s. Please provide applicable Tax Exempt Certificate. If no certificate is provided,
                     sales tax might be collected and will not be refunded.
                 </p>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <p class="card-title p-2"> Please indicate if your company requires purchase order numbers: </p>
-                    </div>
-                    <div class="col-md-1 p-2">
-                        <div class="form-check">
-                            @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "Yes", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredYes", @required = "required" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p class="card-title p-2"> Please indicate if your company requires purchase order numbers: </p>
+            </div>
+            <div class="col-md-1 p-2">
+                <div class="form-check">
+                    @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "Yes", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredYes", @required = "required" })
 
-                            <label class="form-check-label" for="radioButtonPurchaseOrderRequiredYes">
-                                Yes
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-1 p-2">
-                        <div class="form-check">
-                            @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "No", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredNo" })
-                            <label class="form-check-label" for="radioButtonPurchaseOrderRequiredNo">
-                                No
-                            </label>
-                        </div>
-                    </div>
+                    <label class="form-check-label" for="radioButtonPurchaseOrderRequiredYes">
+                        Yes
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-1 p-2">
+                <div class="form-check">
+                    @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "No", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredNo" })
+                    <label class="form-check-label" for="radioButtonPurchaseOrderRequiredNo">
+                        No
+                    </label>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shipment.Application.Features.Orders.Commands;
 using Shipment.Application.Features.Orders.DTOs;
+using Shipment.Application.Services.Interfaces;
 using Shipment.WebApp.Models;
 using Shipment.WebApp.Models.LocationModels;
 
@@ -14,12 +15,14 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
+    private readonly ILookupService _lookupService;
 
-    public HomeController(ILogger<HomeController> logger, IMediator mediator, IMapper mapper)
+    public HomeController(ILogger<HomeController> logger, IMediator mediator, IMapper mapper, ILookupService lookupService)
     {
         _logger = logger;
         _mediator = mediator;
         _mapper = mapper;
+        _lookupService = lookupService;
     }
 
     public IActionResult Index(bool success, string message)
@@ -75,9 +78,10 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult GetStates(string countryId)
+    public async Task<IActionResult> GetStates(string countryId)
     {
-        var states = StateModel.GetStates(countryId);
-        return Ok(states);
+        var statesDto = await _lookupService.ReadStates(countryId);
+        IReadOnlyList<StateModel> shipToStates = _mapper.Map<List<StateModel>>(statesDto);
+        return Ok(shipToStates);
     }
 }

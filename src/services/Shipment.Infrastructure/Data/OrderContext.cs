@@ -11,6 +11,23 @@ public class OrderContext : DbContext
     }
 
     public DbSet<Order> Orders { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<State> States { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Configure CountryId in State entity as a foreign key to Country entity
+        modelBuilder.Entity<State>(entity =>
+        {
+            entity.HasKey(x=>x.Id);
+        });
+        
+        modelBuilder.Entity<Country>(entity =>
+        {
+            entity.HasKey(x=>x.Id);
+        });
+    }
+
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {

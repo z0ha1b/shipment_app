@@ -6,11 +6,11 @@ namespace Shipment.WebApp.Models.LocationModels;
 
 public class StateModel
 {
-    public string Id { get; set; } = string.Empty;
+    public string Abbr { get; set; } = string.Empty;
     public string StateName { get; set; } = string.Empty;
     public string CountryId { get; set; } = string.Empty;
 
-    public static List<StateModel> GetStates(string countryId)
+    /*public static List<StateModel> GetStates(string countryId)
     {
         // Hardcoded states for demonstration purposes
         var states = new List<StateModel>();
@@ -28,5 +28,5 @@ public class StateModel
         }
 
         return states;
-    }
+    }*/
 }
