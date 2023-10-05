@@ -19,6 +19,7 @@ public class MapperProfile : Profile
         // Mapping BillingInfoDto to BillingInfo
         CreateMap<BillingInfoDto, BillingInfo>();
         CreateMap<CountryDto, Country>();
-        CreateMap<StateDto, State>();
+        CreateMap<Country, CountryDto>();
+        CreateMap<State, StateDto>();
     }
 }

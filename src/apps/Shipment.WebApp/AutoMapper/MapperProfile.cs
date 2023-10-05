@@ -14,7 +14,7 @@ public class MapperProfile : Profile
         CreateMap<OrderModel, CreateOrderDto>()
             .ForMember(dto => dto.BillTo, opt => opt.MapFrom(model => model.BillTo))
             .ForMember(dto => dto.ShipTo, opt => opt.MapFrom(model => model.ShipTo));
-       CreateMap<CountryModel, CountryDto>();
-       CreateMap<StateModel, StateDto>();
+       CreateMap<CountryDto, CountryModel>();
+       CreateMap< StateDto, StateModel>();
     }
 }

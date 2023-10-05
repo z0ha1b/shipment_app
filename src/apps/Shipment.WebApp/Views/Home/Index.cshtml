@@ -79,7 +79,7 @@
                     <div class="form-floating mb-3">
                         @{
                             var billToCountriesDto = await _lookupService.ReadCountries();
-                            IReadOnlyList<CountryModel> billToCountries = _mapper.Map<List<CountryModel>>(billToCountriesDto); 
+                            IReadOnlyList<CountryModel> billToCountries = _mapper.Map<List<CountryModel>>(billToCountriesDto);
                             var billToSelectCountriesList = new SelectList(billToCountries, "Abbr", "CountryName");
                         }
                         @Html.DropDownListFor(x => x.BillTo.Country, billToSelectCountriesList, "Select Country", new
@@ -240,7 +240,7 @@
                     <div class="form-floating mb-3">
                         @{
                             var shipToCountriesDto = await _lookupService.ReadCountries();
-                            IReadOnlyList<CountryModel> shipToCountries = _mapper.Map<List<CountryModel>>(shipToCountriesDto); 
+                            IReadOnlyList<CountryModel> shipToCountries = _mapper.Map<List<CountryModel>>(shipToCountriesDto);
                             var shipToSelectCountriesList = new SelectList(shipToCountries, "Abbr", "CountryName");
                         }
                         @Html.DropDownListFor(x => x.ShipTo.Country, shipToSelectCountriesList, "Select Country", new
@@ -357,27 +357,29 @@
                     The sales/use tax obligation is the customer’s. Please provide applicable Tax Exempt Certificate. If no certificate is provided,
                     sales tax might be collected and will not be refunded.
                 </p>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <p class="card-title p-2"> Please indicate if your company requires purchase order numbers: </p>
-                    </div>
-                    <div class="col-md-1 p-2">
-                        <div class="form-check">
-                            @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "Yes", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredYes", @required = "required" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p class="card-title p-2"> Please indicate if your company requires purchase order numbers: </p>
+            </div>
+            <div class="col-md-1 p-2">
+                <div class="form-check">
+                    @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "Yes", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredYes", @required = "required" })
 
-                            <label class="form-check-label" for="radioButtonPurchaseOrderRequiredYes">
-                                Yes
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-1 p-2">
-                        <div class="form-check">
-                            @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "No", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredNo" })
-                            <label class="form-check-label" for="radioButtonPurchaseOrderRequiredNo">
-                                No
-                            </label>
-                        </div>
-                    </div>
+                    <label class="form-check-label" for="radioButtonPurchaseOrderRequiredYes">
+                        Yes
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-1 p-2">
+                <div class="form-check">
+                    @Html.RadioButtonFor(x => x.PurchaseOrderRequired, "No", new { @class = "form-check-input", @id = "radioButtonPurchaseOrderRequiredNo" })
+                    <label class="form-check-label" for="radioButtonPurchaseOrderRequiredNo">
+                        No
+                    </label>
                 </div>
             </div>
         </div>
