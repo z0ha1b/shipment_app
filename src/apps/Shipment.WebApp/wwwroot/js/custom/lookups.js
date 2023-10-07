@@ -68,6 +68,7 @@ $("#SameAsBillTo").on("change", function () {
 $('#radioButtonTaxExemptYes').change(function () {
     if ($(this).is(':checked')) {
         $('#file-upload-column').css("visibility", "visible");
+        $('#taxExemptFile').attr('required', 'required');
     } else {
         $('#file-upload-column').css('visibility', 'hidden');
     }
@@ -75,21 +76,10 @@ $('#radioButtonTaxExemptYes').change(function () {
 
 $('#radioButtonTaxExemptNo').change(function () {
     if ($(this).is(':checked')) {
-        $('#file-upload-column').css('visibility', 'hidden');
+        $('#file-upload-column').css('visibility', 'hidden')
+        $('#taxExemptFile').removeAttr("required");
+
     }
 });
 
-/*
-$('#radioButtonTaxExemptYes').change(function () {
-    if ($(this).is(':checked')) {
-        $('.file-upload-column').removeAttr('hidden');  // Remove the hidden attribute to show the file input field
-    } else {
-        $('.file-upload-column').attr('hidden', true);  // Add the hidden attribute to hide the file input field
-    }
-});
-$('#radioButtonTaxExemptNo').change(function () {
-    if ($(this).is(':checked')) {
-        $('.file-upload-column').attr('hidden', true);
-    }
-});*/
 
