@@ -335,11 +335,10 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-6 p-2 file-upload-column" hidden>
+                    <div class="col-md-6 p-2 file-upload-column" id = "file-upload-column" style="visibility: hidden">
                         <div class="file-upload">
                             <span style="float: right">
-                                @Html.TextBoxFor(x=>x.File, new{@class="form-control", type="file", @id = "taxExemptFile"})
-                                @*<input type="file" class="form-control" name="taxExemptFile" id="taxExemptFile"/>*@
+                                @Html.TextBoxFor(x => x.File, new { @class = "form-control", type = "file", @id = "taxExemptFile" })
                             </span>
                         </div>
                     </div>

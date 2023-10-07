@@ -53,13 +53,21 @@ public class HomeController : Controller
                 CreateOrderDto = orderDto
             };
             var orderId = await _mediator.Send(command);
-            if (order.File is not null)
+            if (order.File != null)
             {
-                var fileName = "TaxExemptFile_OrderNo_" + orderId.ToString();
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
-                await using var fileStream = new FileStream(filePath, FileMode.Create);
-                await order.File.CopyToAsync(fileStream);
+                var uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadFiles");
+                if (!Directory.Exists(uploadFolderPath))
+                {
+                    Directory.CreateDirectory(uploadFolderPath);
+                }
+                var fileName = "TaxExemptFile_OrderNo_" + orderId.ToString() + Path.GetExtension(order.File.FileName);
+                var filePath = Path.Combine(uploadFolderPath, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await order.File.CopyToAsync(fileStream);
+                }
             }
+
             order = new OrderModel
             {
                 Success = true
