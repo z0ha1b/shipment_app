@@ -52,34 +52,48 @@ function ShipRefreshStates(response) {
     });
 }
 
+function disableShipToFields() {
+    $(".ship-to-column").find("input[type='text'],input[type='email'],select").each(function (d) {
+        $(this).val("");
+        $(this).attr("disabled", "disabled");
+    });
+}
+
+function enableShipToFields(){
+    $(".ship-to-column").find("input[type='text'],input[type='email'],select").each(function (d) {
+        $(this).removeAttr("disabled");
+    }); 
+}
+
+function showFile(){
+    $('#file-upload-column').css("visibility", "visible");
+    $('#taxExemptFile').attr("required", "required");
+}
+
+function hideFile(){
+    $('#file-upload-column').css('visibility', 'hidden');
+    $('#taxExemptFile').removeAttr("required");
+}
+
 $("#SameAsBillTo").on("change", function () {
     let isChecked = $(this).is(":checked");
     if (isChecked) {
-        $(".ship-to-column").find("input[type='text'],input[type='email'],select").each(function (d) {
-            $(this).val("");
-            $(this).attr("disabled", "disabled");
-        });
+        disableShipToFields();
     } else {
-        $(".ship-to-column").find("input[type='text'],input[type='email'],select").each(function (d) {
-            $(this).removeAttr("disabled");
-        });
+        enableShipToFields();
     }
 });
+
 $('#radioButtonTaxExemptYes').change(function () {
     if ($(this).is(':checked')) {
-        $('#file-upload-column').css("visibility", "visible");
-        $('#taxExemptFile').attr('required', 'required');
+        showFile();
     } else {
-        $('#file-upload-column').css('visibility', 'hidden');
+        hideFile();
     }
 });
 
 $('#radioButtonTaxExemptNo').change(function () {
     if ($(this).is(':checked')) {
-        $('#file-upload-column').css('visibility', 'hidden')
-        $('#taxExemptFile').removeAttr("required");
-
+        hideFile();
     }
 });
-
-

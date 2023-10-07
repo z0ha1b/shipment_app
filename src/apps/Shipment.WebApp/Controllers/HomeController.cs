@@ -42,6 +42,21 @@ public class HomeController : Controller
     {
         try
         {
+            if (order.TaxExempt.Equals("yes", StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (order.File is not null)
+                {
+                    if (Path.GetExtension(order.File.FileName) == ".exe")
+                    {
+                        throw new Exception("File is not valid.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Please attach tax exempt file.");
+                }
+            }
+
             if (order.SameAsBillTo)
             {
                 order.ShipTo = order.BillTo;
@@ -52,20 +67,20 @@ public class HomeController : Controller
             {
                 CreateOrderDto = orderDto
             };
+
             var orderId = await _mediator.Send(command);
-            if (order.File != null)
+            if (order is { File: not null })
             {
-                var uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadFiles");
+                var uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files");
                 if (!Directory.Exists(uploadFolderPath))
                 {
                     Directory.CreateDirectory(uploadFolderPath);
                 }
-                var fileName = "TaxExemptFile_OrderNo_" + orderId.ToString() + Path.GetExtension(order.File.FileName);
+
+                var fileName = "TaxExemptFile_OrderNo_" + orderId + Path.GetExtension(order.File.FileName);
                 var filePath = Path.Combine(uploadFolderPath, fileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await order.File.CopyToAsync(fileStream);
-                }
+                await using var fileStream = new FileStream(filePath, FileMode.Create);
+                await order.File.CopyToAsync(fileStream);
             }
 
             order = new OrderModel

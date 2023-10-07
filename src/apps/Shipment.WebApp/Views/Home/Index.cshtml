@@ -335,10 +335,10 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-6 p-2 file-upload-column" id = "file-upload-column" style="visibility: hidden">
+                    <div class="col-md-6 p-2 file-upload-column" id="file-upload-column" style="visibility: hidden">
                         <div class="file-upload">
                             <span style="float: right">
-                                @Html.TextBoxFor(x => x.File, new { @class = "form-control", type = "file", @id = "taxExemptFile"})
+                                @Html.TextBoxFor(x => x.File, new { @class = "form-control", type = "file", @id = "taxExemptFile" })
                             </span>
                         </div>
                     </div>
@@ -413,4 +413,19 @@
 @section Scripts
 {
     <script type="text/javascript" src="@Href("~/js/custom/lookups.js")"></script>
+    <script type="text/javascript">
+    @if (Model.SameAsBillTo)
+    {
+        <text>
+           disableShipToFields();
+        </text>
+    }
+
+    @if (Model.TaxExempt != null && Model.TaxExempt.Equals("yes", StringComparison.InvariantCultureIgnoreCase))
+    {
+        <text>
+            $('#radioButtonTaxExemptYes').change();
+        </text>
+    }
+    </script>
 }
