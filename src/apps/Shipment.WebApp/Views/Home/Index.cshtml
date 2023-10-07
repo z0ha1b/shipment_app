@@ -5,14 +5,13 @@
 @inject ILookupService _lookupService
 @inject IMapper _mapper
 
-
 @{
     ViewData["Title"] = " Customer Application";
 }
 
 <div >
 <h3 class="text-center mb-3"> Customer Application</h3>
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="container">
     <div class="row">
@@ -191,8 +190,14 @@
 
             </div>
         </div>
-        <div class="col">
-            <h5>Ship To</h5>
+        <div class="col ship-to-column">
+            <h5>
+                Ship To
+                <span style="float: right">
+                    @Html.CheckBoxFor(x => x.SameAsBillTo, new { @class = "form-check-input", @id = "SameAsBillTo" })
+                    <label for="SameAsBillTo">Same as Bill To</label>
+                </span>
+            </h5>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-floating mb-3">
@@ -330,6 +335,14 @@
                             </label>
                         </div>
                     </div>
+                    <div class="col-md-6 p-2 file-upload-column" hidden>
+                        <div class="file-upload">
+                            <span style="float: right">
+                                @Html.TextBoxFor(x=>x.File, new{@class="form-control", type="file", @id = "taxExemptFile"})
+                                @*<input type="file" class="form-control" name="taxExemptFile" id="taxExemptFile"/>*@
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <p class="card-text fw-bold p-2 m-1">
                     The sales/use tax obligation is the customer’s. Please provide applicable Tax Exempt Certificate. If no certificate is provided,
@@ -392,7 +405,6 @@
             <input class="btn btn-primary" type="submit"/>
         </div>
     </div>
-
     </div>
 }
 </div>

@@ -17,7 +17,8 @@ public class HomeController : Controller
     private readonly IMapper _mapper;
     private readonly ILookupService _lookupService;
 
-    public HomeController(ILogger<HomeController> logger, IMediator mediator, IMapper mapper, ILookupService lookupService)
+    public HomeController(ILogger<HomeController> logger, IMediator mediator, IMapper mapper,
+        ILookupService lookupService)
     {
         _logger = logger;
         _mediator = mediator;
@@ -41,13 +42,24 @@ public class HomeController : Controller
     {
         try
         {
+            if (order.SameAsBillTo)
+            {
+                order.ShipTo = order.BillTo;
+            }
+
             var orderDto = _mapper.Map<CreateOrderDto>(order);
             var command = new CreateOrderCommand
             {
                 CreateOrderDto = orderDto
             };
-
-            await _mediator.Send(command);
+            var orderId = await _mediator.Send(command);
+            if (order.File is not null)
+            {
+                var fileName = "TaxExemptFile_OrderNo_" + orderId.ToString();
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "UploadedFiles", fileName);
+                await using var fileStream = new FileStream(filePath, FileMode.Create);
+                await order.File.CopyToAsync(fileStream);
+            }
             order = new OrderModel
             {
                 Success = true
@@ -80,7 +92,7 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> GetStates(long countryId)
     {
-            var statesDto = await _lookupService.ReadStates(countryId);
+        var statesDto = await _lookupService.ReadStates(countryId);
         IReadOnlyList<StateModel> shipToStates = _mapper.Map<List<StateModel>>(statesDto);
         return Ok(shipToStates);
     }

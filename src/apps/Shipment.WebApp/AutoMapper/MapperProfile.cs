@@ -15,6 +15,6 @@ public class MapperProfile : Profile
             .ForMember(dto => dto.BillTo, opt => opt.MapFrom(model => model.BillTo))
             .ForMember(dto => dto.ShipTo, opt => opt.MapFrom(model => model.ShipTo));
        CreateMap<CountryDto, CountryModel>();
-       CreateMap< StateDto, StateModel>();
+       CreateMap<StateDto, StateModel>();
     }
 }

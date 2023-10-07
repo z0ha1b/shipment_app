@@ -2,6 +2,8 @@ namespace Shipment.WebApp.Models;
 
 public class OrderModel
 {
+    public bool SameAsBillTo { get; set; }
+    public IFormFile? File { get; set; }
     public bool Success { get; set; }
     public string? Message { get; set; }
     public BillingInfoModel? BillTo { get; set; } = new();

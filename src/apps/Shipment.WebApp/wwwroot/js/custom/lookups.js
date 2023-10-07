@@ -1,3 +1,4 @@
+// Bill Country DropDown
 $("#BillToCountryDropDown").change(function () {
     let selectedCountryId = $(this).val();
     $.ajax({
@@ -23,6 +24,8 @@ function refreshStates(response) {
         stateDropdown.append($("<option>").text(item.stateName).val(item.id));
     });
 }
+
+// Ship Country DropDown
 $("#ShipToCountryDropDown").change(function () {
     let selectedCountryId = $(this).val();
     $.ajax({
@@ -48,3 +51,30 @@ function ShipRefreshStates(response) {
         stateDropdown.append($("<option>").text(item.stateName).val(item.id));
     });
 }
+
+$("#SameAsBillTo").on("change", function () {
+    let isChecked = $(this).is(":checked");
+    if (isChecked) {
+        $(".ship-to-column").find("input[type='text'],input[type='email'],select").each(function (d) {
+            $(this).val("");
+            $(this).attr("disabled", "disabled");
+        });
+    } else {
+        $(".ship-to-column").find("input[type='text'],input[type='email'],select").each(function (d) {
+            $(this).removeAttr("disabled");
+        });
+    }
+});
+$('#radioButtonTaxExemptYes').change(function () {
+    if ($(this).is(':checked')) {
+        $('.file-upload-column').removeAttr('hidden');  // Remove the hidden attribute to show the file input field
+    } else {
+        $('.file-upload-column').attr('hidden', true);  // Add the hidden attribute to hide the file input field
+    }
+});
+$('#radioButtonTaxExemptNo').change(function () {
+    if ($(this).is(':checked')) {
+        $('.file-upload-column').attr('hidden', true);
+    }
+});
+
